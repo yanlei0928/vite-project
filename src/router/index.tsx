@@ -12,6 +12,7 @@ const lazyLoad = (Component: React.LazyExoticComponent<any>) => (
 // 使用 React.lazy 实现代码分割（按需加载）
 const Test1 = lazy(() => import('../pages/Test1'));
 const Test2 = lazy(() => import('../pages/Test2'));
+const Test3 = lazy(() => import('../pages/Test3'));
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/test2',
     element: lazyLoad(Test2),
+  },
+  {
+    path: '/test3',
+    element: lazyLoad(Test3),
   },
 ]);
 
