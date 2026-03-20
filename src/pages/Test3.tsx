@@ -18,9 +18,11 @@ interface ApiResponse {
 const CONFIG = {
   PAGE_SIZE: 20,
   MAX_PAGE: 20,
-  ROW_HEIGHT: 280,
   OVERSCAN: 3,
   DEBOUNCE_DELAY: 200,
+  CARD_ASPECT_RATIO: 4 / 3, // 4:3 图片比例
+  GAP_Y: 24, // gap-6 = 24px
+  PADDING_X: 16, // p-4 = 16px
 } as const;
 
 // 响应式断点配置
@@ -36,6 +38,14 @@ const getColumnsCount = (width: number): number => {
     if (width >= bp.width) return bp.columns;
   }
   return 2;
+};
+
+// 计算行高（根据容器宽度和列数）
+const calculateRowHeight = (containerWidth: number, columns: number): number => {
+  const availableWidth = containerWidth - CONFIG.PADDING_X * 2;
+  const cardWidth = (availableWidth - (columns - 1) * CONFIG.GAP_Y) / columns;
+  const cardHeight = cardWidth * CONFIG.CARD_ASPECT_RATIO;
+  return cardHeight + CONFIG.GAP_Y;
 };
 
 // 防抖函数
@@ -118,11 +128,17 @@ const Test3: React.FC = () => {
     return result;
   }, [dataList, columns]);
 
+  // 计算行高
+  const rowHeight = useMemo(() => {
+    const width = containerRef.current?.clientWidth || window.innerWidth;
+    return calculateRowHeight(width, columns);
+  }, [columns]);
+
   // 虚拟滚动
   const virtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => containerRef.current,
-    estimateSize: () => CONFIG.ROW_HEIGHT,
+    estimateSize: () => rowHeight,
     overscan: CONFIG.OVERSCAN,
   });
 
