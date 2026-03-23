@@ -13,6 +13,7 @@ const lazyLoad = (Component: React.LazyExoticComponent<any>) => (
 const Test1 = lazy(() => import('../pages/Test1'));
 const Test2 = lazy(() => import('../pages/Test2'));
 const Test3 = lazy(() => import('../pages/Test3'));
+const Test4 = lazy(() => import('../pages/Test4'));
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/test3',
     element: lazyLoad(Test3),
+  },
+  {
+    path: '/test4',
+    element: lazyLoad(Test4),
   },
 ]);
 
