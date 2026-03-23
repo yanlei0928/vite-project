@@ -40,6 +40,8 @@ const getColumnsCount = (width: number): number => {
   return 2;
 };
 
+
+
 // 计算行高（根据容器宽度和列数）
 const calculateRowHeight = (containerWidth: number, columns: number): number => {
   const availableWidth = containerWidth - CONFIG.PADDING_X * 2;
