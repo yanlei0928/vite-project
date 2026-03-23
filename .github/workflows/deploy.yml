@@ -27,11 +27,14 @@ jobs:
         with:
           node-version: 18
 
+      - name: 安装 Yarn
+        run: npm install -g yarn
+
       - name: 安装依赖
-        run: npm install
+        run: yarn install --frozen-lockfile
 
       - name: 构建
-        run: npm run build
+        run: yarn build
 
       - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
