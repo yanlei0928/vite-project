@@ -36,6 +36,8 @@ const router = createBrowserRouter([
     path: '/test4',
     element: lazyLoad(Test4),
   },
-]);
+], {
+  basename: '/vite-project',
+});
 
 export default router;
